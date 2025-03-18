@@ -65,7 +65,7 @@ const CreateResumeForm = () => {
     register,
     control,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<ResumeFormInputs>({
     resolver: zodResolver(resumeSchema),
     defaultValues: {
@@ -80,7 +80,7 @@ const CreateResumeForm = () => {
       educations: [],
     },
   });
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { resumeImage, setResumeImage, setGeneratedData } =
     useGeneratedResumeInfo();
   const router = useRouter();
@@ -89,11 +89,29 @@ const CreateResumeForm = () => {
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => setResumeImage(reader.result as string);
-      reader.readAsDataURL(file);
-    }
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      const img = new window.Image();
+      img.src = reader.result as string;
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        const maxWidth = 500; // Resize to max 500px width
+        const scale = maxWidth / img.width;
+        canvas.width = maxWidth;
+        canvas.height = img.height * scale;
+
+        ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+        // Convert to JPEG (quality: 0.7 to reduce size)
+        const compressedBase64 = canvas.toDataURL("image/jpeg", 0.7);
+        setResumeImage(compressedBase64);
+      };
+    };
   };
 
   // useFieldArray for experiences
@@ -118,8 +136,8 @@ const CreateResumeForm = () => {
 
   // Submit handler
   const onSubmit = async (data: ResumeFormInputs) => {
+    setIsSubmitting(true);
     try {
-
       // setGeneratedData({
       //   candidate: {
       //     name: "John Doe",
@@ -182,12 +200,12 @@ const CreateResumeForm = () => {
       }
 
       setGeneratedData(result); // Store AI-generated content
-
       router.push("resume-preview");
     } catch (error: any) {
       setError(error);
       setIsDialogOpen(true);
     }
+    setIsSubmitting(false);
   };
 
   const handleCloseDialog = () => {

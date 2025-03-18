@@ -53,88 +53,92 @@ const ResumePage = () => {
       doc = new Document({
         sections: [
           {
-        properties: {},
-        children: [
-          new Paragraph({
+            properties: {},
             children: [
-          new TextRun({ text: candidate.name, bold: true, size: 32 }),
+              new Paragraph({
+                children: [
+                  new TextRun({ text: candidate.name, bold: true, size: 32 }),
+                ],
+                spacing: { after: 200 },
+              }),
+              new Paragraph({
+                text: `${candidate.contact.email} | ${candidate.contact.phone} | ${candidate.contact.address}`,
+                spacing: { after: 300 },
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({ text: "Summary", bold: true, size: 26 }),
+                ],
+                spacing: { after: 100 },
+              }),
+              new Paragraph(resume.summary),
+              ...(resume.workExperience.length > 0
+                ? [
+                    new Paragraph({
+                      children: [
+                        new TextRun({
+                          text: "Work Experience",
+                          bold: true,
+                          size: 26,
+                        }),
+                      ],
+                      spacing: { after: 100 },
+                    }),
+                    ...resume.workExperience.map(
+                      (job) =>
+                        new Paragraph({
+                          children: [
+                            new TextRun({
+                              text: `${job.title} - ${job.company}`,
+                              bold: true,
+                            }),
+                            new TextRun({
+                              text: `\n${job.location} | ${job.dates}`,
+                            }),
+                            new TextRun({ text: `\n${job.description}` }),
+                          ],
+                          spacing: { after: 200 },
+                        })
+                    ),
+                  ]
+                : []),
+              ...(resume.education.length > 0
+                ? [
+                    new Paragraph({
+                      children: [
+                        new TextRun({
+                          text: "Education",
+                          bold: true,
+                          size: 26,
+                        }),
+                      ],
+                      spacing: { after: 100 },
+                    }),
+                    ...resume.education.map(
+                      (edu) =>
+                        new Paragraph({
+                          children: [
+                            new TextRun({
+                              text: `${edu.degree} in ${edu.field}`,
+                              bold: true,
+                            }),
+                            new TextRun({
+                              text: `\n${edu.institution}, ${edu.location} | ${edu.graduationDate}`,
+                            }),
+                          ],
+                          spacing: { after: 200 },
+                        })
+                    ),
+                  ]
+                : []),
+              new Paragraph({
+                children: [
+                  new TextRun({ text: "Skills", bold: true, size: 26 }),
+                ],
+                spacing: { after: 100 },
+              }),
+              new Paragraph(resume.skills.join(", ")),
             ],
-            spacing: { after: 200 },
-          }),
-          new Paragraph({
-            text: `${candidate.contact.email} | ${candidate.contact.phone} | ${candidate.contact.address}`,
-            spacing: { after: 300 },
-          }),
-          new Paragraph({
-            children: [
-          new TextRun({ text: "Summary", bold: true, size: 26 }),
-            ],
-            spacing: { after: 100 },
-          }),
-          new Paragraph(resume.summary),
-          ...(resume.workExperience.length > 0
-            ? [
-            new Paragraph({
-              children: [
-            new TextRun({
-              text: "Work Experience",
-              bold: true,
-              size: 26,
-            }),
-              ],
-              spacing: { after: 100 },
-            }),
-            ...resume.workExperience.map(
-              (job) =>
-            new Paragraph({
-              children: [
-                new TextRun({
-              text: `${job.title} - ${job.company}`,
-              bold: true,
-                }),
-                new TextRun({
-              text: `\n${job.location} | ${job.dates}`,
-                }),
-                new TextRun({ text: `\n${job.description}` }),
-              ],
-              spacing: { after: 200 },
-            })
-            ),
-          ]
-            : []),
-          ...(resume.education.length > 0
-            ? [
-            new Paragraph({
-              children: [
-            new TextRun({ text: "Education", bold: true, size: 26 }),
-              ],
-              spacing: { after: 100 },
-            }),
-            ...resume.education.map(
-              (edu) =>
-            new Paragraph({
-              children: [
-                new TextRun({
-              text: `${edu.degree} in ${edu.field}`,
-              bold: true,
-                }),
-                new TextRun({
-              text: `\n${edu.institution}, ${edu.location} | ${edu.graduationDate}`,
-                }),
-              ],
-              spacing: { after: 200 },
-            })
-            ),
-          ]
-            : []),
-          new Paragraph({
-            children: [
-          new TextRun({ text: "Skills", bold: true, size: 26 }),
-            ],
-            spacing: { after: 100 },
-          }),
-          new Paragraph(resume.skills.join(", ")),
-        ],
           },
         ],
       });
