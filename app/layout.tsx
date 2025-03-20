@@ -14,11 +14,26 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Astro",
+export const metadata = {
+  title: "Astro AI Resume Builder - Build Your Resume Instantly",
   description:
-    "Leverage advanced AI technology to create a professional resume that truly reflects your skills and experience. Our platform simplifies the process so you can stand out in the competitive job market.",
+    "Create professional resumes and cover letters with AI-powered assistance. Fast, easy, and customizable.",
+  openGraph: {
+    title: "Astro AI Resume Builder",
+    description: "Build your resume in seconds with AI.",
+    url: process.env.NEXT_PUBLIC_VERCEL_URL,
+    siteName: "AI Resume Builder",
+    images: [
+      {
+        url: `${process.env.NEXT_PUBLIC_VERCEL_URL}/assets/hero.png`,
+        width: 1200,
+        height: 630,
+      },
+    ],
+    type: "website",
+  },
 };
+
 
 export default function RootLayout({
   children,
