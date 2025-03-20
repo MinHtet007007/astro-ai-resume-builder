@@ -21,11 +21,11 @@ export const metadata = {
   openGraph: {
     title: "Astro AI Resume Builder",
     description: "Build your resume in seconds with AI.",
-    url: process.env.NEXT_PUBLIC_VERCEL_URL,
+    url: process.env.NEXT_PUBLIC_SITE_URL,
     siteName: "AI Resume Builder",
     images: [
       {
-        url: `${process.env.NEXT_PUBLIC_VERCEL_URL}/assets/hero.png`,
+        url: `${process.env.NEXT_PUBLIC_SITE_URL}/assets/hero.png`,
         width: 1200,
         height: 630,
       },
