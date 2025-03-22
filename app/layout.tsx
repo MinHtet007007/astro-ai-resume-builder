@@ -19,11 +19,15 @@ export const metadata = {
   title: "Astro AI Resume Builder - Build Your Resume Instantly",
   description:
     "Create professional resumes and cover letters with AI-powered assistance. Fast, easy, and customizable.",
+  applicationName: "Astro AI Resume Builder",
+  icons: {
+    icon: "/favicon.ico",
+  },
   openGraph: {
     title: "Astro AI Resume Builder",
     description: "Build your resume in seconds with AI.",
     url: process.env.NEXT_PUBLIC_SITE_URL,
-    siteName: "AI Resume Builder",
+    siteName: "Astro AI Resume Builder",
     images: [
       {
         url: `${process.env.NEXT_PUBLIC_SITE_URL}/assets/hero.png`,
@@ -34,7 +38,6 @@ export const metadata = {
     type: "website",
   },
 };
-
 
 export default function RootLayout({
   children,
