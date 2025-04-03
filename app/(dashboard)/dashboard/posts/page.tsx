@@ -17,7 +17,7 @@ import { Button } from "../../../../components/ui/button";
 
 export default function DashboardPage() {
   const [posts, setPosts] = useState<
-    { id: string; title: string; content: string }[]
+    { id: string; slug: string; title: string; content: string }[]
   >([]);
   const [expandedPosts, setExpandedPosts] = useState<Record<string, boolean>>(
     {}
@@ -124,7 +124,7 @@ export default function DashboardPage() {
               )}
               <div className="flex gap-3 mt-3">
                 <Link
-                  href={`/dashboard/posts/edit/${post.id}`}
+                  href={`/dashboard/posts/edit/${post.slug}`}
                   className="text-blue-500"
                 >
                   Edit
