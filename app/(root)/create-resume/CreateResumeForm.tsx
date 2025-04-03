@@ -4,12 +4,12 @@ import React, { useState } from "react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { InputWithLabel } from "../../components/InputWithLabel";
-import { Label } from "../../components/ui/label";
-import { TextareaWithLabel } from "../../components/TextareaWithLabel";
-import { Separator } from "../../components/ui/separator";
-import { DatePickerWithLabel } from "../../components/DatePickerWithLabel";
-import { Button } from "../../components/ui/button";
+import { InputWithLabel } from "../../../components/InputWithLabel";
+import { Label } from "../../../components/ui/label";
+import { TextareaWithLabel } from "../../../components/TextareaWithLabel";
+import { Separator } from "../../../components/ui/separator";
+import { DatePickerWithLabel } from "../../../components/DatePickerWithLabel";
+import { Button } from "../../../components/ui/button";
 import { Trash, UploadCloud } from "lucide-react";
 import {
   AlertDialog,
@@ -21,8 +21,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "../../components/ui/alert-dialog";
-import { useGeneratedResumeInfo } from "../../contexts/GeneratedResumeInfoContext";
+} from "../../../components/ui/alert-dialog";
+import { useGeneratedResumeInfo } from "../../../contexts/GeneratedResumeInfoContext";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 

@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import GeneratedResumeInfoProvider from "../contexts/GeneratedResumeInfoContext";
 import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
+import { SessionProvider } from "next-auth/react";
+import { auth } from "../auth";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,34 +40,38 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
+  // console.log(session)
   return (
-    <html lang="en">
-      <head>
-        {/* Google Analytics */}
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=G-SZSYC3E625`}
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
+    <SessionProvider session={session}>
+      <html lang="en">
+        <head>
+          {/* Google Analytics */}
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=G-SZSYC3E625`}
+            strategy="afterInteractive"
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-SZSYC3E625');
           `}
-        </Script>
-      </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <GeneratedResumeInfoProvider>{children}</GeneratedResumeInfoProvider>
-        <Analytics />
-      </body>
-    </html>
+          </Script>
+        </head>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <GeneratedResumeInfoProvider>{children}</GeneratedResumeInfoProvider>
+          <Analytics />
+        </body>
+      </html>
+    </SessionProvider>
   );
 }
