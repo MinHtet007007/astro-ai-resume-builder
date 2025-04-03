@@ -11,8 +11,17 @@ import { Menu, Star } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
+import { useSession } from "next-auth/react";
+import { logOut } from "../lib/actions";
+import { useActionState } from "react";
 
 export default function Navbar() {
+  const { data: session } = useSession();
+  const [errorMessage, formAction, isPending] = useActionState(async () => {
+    await logOut();
+    window.location.reload();
+  }, undefined);
+
   return (
     <header className="flex items-center justify-between py-4 px-4 md:px-40 border-b bg-gradient-to-r from-blue-100 via-white to-green-100">
       {/* Enhanced Astro Logo */}
@@ -28,7 +37,19 @@ export default function Navbar() {
       {/* Normal Navigation (Hidden on Small Screens) */}
       <nav className="hidden md:flex space-x-6">
         <NavLink href="/">Home</NavLink>
+        <NavLink href="/blogs">Blog</NavLink>
         <NavLink href="/create-resume">Create</NavLink>
+        {session && (
+          <form action={formAction}>
+            <Button
+              type="submit"
+              disabled={isPending}
+              //   className="flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3"
+            >
+              {isPending ? "Loading..." : "Sign Out"}
+            </Button>
+          </form>
+        )}
       </nav>
 
       {/* Mobile Navigation (Hidden on Large Screens) */}
@@ -80,6 +101,7 @@ function MobileNav() {
         <SheetHeader className="text-2xl font-bold">Menu</SheetHeader>
         <nav className="flex flex-col space-y-4">
           <NavLink href="/">Home</NavLink>
+          <NavLink href="/blogs">Blog</NavLink>
           <NavLink href="/create-resume">Create</NavLink>
         </nav>
       </SheetContent>
