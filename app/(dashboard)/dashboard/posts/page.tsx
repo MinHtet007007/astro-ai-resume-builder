@@ -149,7 +149,7 @@ export default function DashboardPage() {
                       <AlertDialogAction
                         className="cursor-pointer"
                         onClick={async () => {
-                          await fetch(`/api/posts/${post.id}`, {
+                          await fetch(`/api/posts/${post.slug}`, {
                             method: "DELETE",
                           });
                           setPosts(posts.filter((p) => p.id !== post.id));

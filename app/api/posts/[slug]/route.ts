@@ -29,16 +29,16 @@ export const incrementViewCount = async (
 export const GET = auth(async (req, { params }) => {
   try {
     // Ensuring params is awaited
-    const { id } = await params; // Await params here
-    if (!id) {
+    const { slug } = await params; // Await params here
+    if (!slug) {
       return NextResponse.json(
-        { error: "Post ID is required" },
+        { error: "Post slug is required" },
         { status: 400 }
       );
     }
 
     const post = await prisma.post.findUnique({
-      where: { slug: id },
+      where: { slug: slug },
     });
 
     if (!post) {
@@ -61,10 +61,10 @@ export const PATCH = auth(async (req, { params }) => {
 
   try {
     // Ensuring params is awaited
-    const { id } = await params; // Await params here
-    if (!id) {
+    const { slug } = await params; // Await params here
+    if (!slug) {
       return NextResponse.json(
-        { error: "Post ID is required" },
+        { error: "Post slug is required" },
         { status: 400 }
       );
     }
@@ -73,7 +73,7 @@ export const PATCH = auth(async (req, { params }) => {
 
     const post = await prisma.post.updateMany({
       where: {
-        id: id,
+        slug: slug,
         authorId: req.auth.user?.id,
       },
       data: { title, content, image },
@@ -102,17 +102,17 @@ export const DELETE = auth(async (req, { params }) => {
 
   try {
     // Ensuring params is awaited
-    const { id } = await params; // Await params here
-    if (!id) {
+    const { slug } = await params; // Await params here
+    if (!slug) {
       return NextResponse.json(
-        { error: "Post ID is required" },
+        { error: "Post slug is required" },
         { status: 400 }
       );
     }
 
     const deletedPost = await prisma.post.deleteMany({
       where: {
-        id: id,
+        slug: slug,
         authorId: req.auth.user?.id,
       },
     });
