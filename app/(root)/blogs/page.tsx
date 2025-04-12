@@ -1,14 +1,6 @@
-import { prisma } from "@/lib/prisma";
+import { getTrendingPosts } from "../../../lib/utils";
 import BlogCard from "./BlogCard";
 import Link from "next/link";
-
-// Fetch trending posts (Most viewed)
-async function getTrendingPosts() {
-  return await prisma.post.findMany({
-    orderBy: { viewCount: "desc" },
-    take: 3,
-  });
-}
 
 export default async function PostsPage() {
   const trendingPosts = await getTrendingPosts();

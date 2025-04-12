@@ -19,8 +19,6 @@ export default function BlogPage() {
   const [post, setPost] = useState<any>(null);
     const [relatedPosts, setRelatedPosts] = useState<any[]>([]);
     
-    console.log(post)
-
   useEffect(() => {
     async function fetchData() {
       const res = await fetch(`/api/posts/${slug}`);

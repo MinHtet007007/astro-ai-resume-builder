@@ -4,12 +4,10 @@ import React, { useEffect, useState } from "react";
 import { useGeneratedResumeInfo } from "../../../contexts/GeneratedResumeInfoContext";
 import { useRouter } from "next/navigation";
 import { Button } from "../../../components/ui/button";
-import Navbar from "../../../components/Navbar";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import { saveAs } from "file-saver";
 import { Document, Packer, Paragraph, TextRun } from "docx";
 import DefaultResumeTemplate from "../../../components/resumeTemplates/DefaultResumeTemplate";
-import Footer from "../../../components/Footer";
 import { Separator } from "../../../components/ui/separator";
 import DefaultCoverLetterTemplate from "../../../components/coverLetterTemplates/DefaultCoverLetterTemplate";
 
@@ -183,7 +181,6 @@ const ResumePage = () => {
 
   return (
     <div>
-      <Navbar />
       <div className="min-h-screen bg-gradient-to-r from-blue-100 via-white to-green-100 flex flex-col lg:flex-row lg:items-center lg:justify-center gap-8 p-8">
         {/* Resume Display & Buttons */}
         <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 max-w-3xl">
@@ -264,7 +261,6 @@ const ResumePage = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };
